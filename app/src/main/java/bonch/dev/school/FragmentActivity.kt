@@ -1,35 +1,99 @@
 package bonch.dev.school
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import bonch.dev.school.fragment.FirstFragment
-import bonch.dev.school.fragment.SecondFragment
+import android.widget.Button
+import android.widget.TextView
+import bonch.dev.school.fragment.MyFragment
 
 class FragmentActivity : AppCompatActivity() {
 
+    val fm=supportFragmentManager
+    private lateinit var counterButton: Button
+    private lateinit var  counter: Counter
+    private lateinit var textField: TextView
+    private lateinit var indicatorButton: Button
+    private lateinit var attachFragmentButton: Button
+    private lateinit var editText: TextView
 
-    val fm = supportFragmentManager
+
+
+
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fragment)
+        counter = Counter()
 
-        val firstFragment = FirstFragment()
-        fm.beginTransaction()
-            .add(R.id.my_fragment, firstFragment)
-            .commit()
+
+        counter=  if(savedInstanceState == null){
+            Counter()
+        }
+        else{
+            Counter(savedInstanceState.getInt("TAP_AMOUNTS"))
+        }
+        initializeView()
+        textField.text = "Button was tapped ${counter.currentCount} times"
+        setListener()
 
 
     }
 
-    fun replaceFragment() {
-        val fragment = SecondFragment()
-        fm.beginTransaction()
-            .replace(R.id.my_fragment, fragment)
-            .addToBackStack("second_fragment")
-            .commit()
+    private fun initializeView(){
+        counterButton=findViewById(R.id.counter_button)
+        textField=findViewById(R.id.text_field)
+        indicatorButton=findViewById(R.id.indicator_button)
+        attachFragmentButton = findViewById(R.id.attach_fragment_button)
+        editText= findViewById(R.id.edit_text)
+
     }
+
+
+
+    private fun setListener(){
+        counterButton.setOnClickListener {
+            counter.increment()
+            textField.text = "Button was tapped ${counter.currentCount}"
+
+        }
+        val bundle = Bundle()
+
+
+        attachFragmentButton.setOnClickListener {
+            val firstFragment = MyFragment()
+            //    val myFragment = MyFragment.newInstance(counter.currentCount)
+            // bundle.putInt("TAP", counter.currentCount)
+            //   myFragment
+            bundle.putInt("TAP_CURRENT", counter.currentCount)
+            bundle.putString("EDIT_TEXT", editText.getText().toString())
+
+            firstFragment.setArguments(bundle)
+            fm.beginTransaction()
+                .add(R.id.fragment_container, firstFragment)
+                .commit()
+        }
+
+        var indic=true
+        indicatorButton.setOnClickListener{
+
+            indicatorButton.isEnabled = false
+            indic ==false
+
+            bundle.putBoolean("INDIC", indic)
+        }
+
+    }
+
+
+
+    override  fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt("TAP_AMOUNTS", counter.currentCount)
+    }
+
 
 
 }
