@@ -60,10 +60,6 @@ class FirstActivity : AppCompatActivity() {
         indicatorButton.setOnClickListener{
          indicatorButton.isEnabled= false
 
-
-           /* val intent = Intent(this@FirstActivity, SecondActivity::class.java)
-            intent.putExtra("TAP_INDICATOR", false)
-            startActivity(intent)*/
         }
 
         }
