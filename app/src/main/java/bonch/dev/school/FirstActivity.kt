@@ -73,9 +73,7 @@ class FirstActivity : AppCompatActivity() {
             outState.putInt("TAP_AMOUNTS", counter.currentCount)
         }
 
-     /*  override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-            super.onRestoreInstanceState(savedInstanceState)
-        }*/
+     
 
 
     }
