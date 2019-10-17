@@ -1,24 +1,32 @@
 package bonch.dev.school
 
+import android.app.Activity
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 
 class SecondActivity : AppCompatActivity() {
 
-    private lateinit var textView: TextView
+    private lateinit var finishButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_second)
+        setListener()
 
-        textView=findViewById(R.id.text_view)
+    }
 
-        val counterValue = intent.getIntExtra("TAP_KEY", 0)
-        val currentIndicator = intent.getBooleanExtra("TAP_INDICATOR", true)
-        val  currentEdit= intent.getStringExtra("EDIT_TEXT")
+    private fun setListener(){
+        finishButton=findViewById(R.id.finish_button)
+        finishButton.setOnClickListener{
+            val data = Intent(this@SecondActivity, FirstActivity::class.java)
+            setResult(Activity.RESULT_OK, data )
+            finish()
 
-        textView.text = "tap - $counterValue  indicator -  $currentIndicator   $currentEdit"
+        }
 
     }
 }
