@@ -47,10 +47,7 @@ class FirstActivity : AppCompatActivity() {
         }
         super.onActivityResult(requestCode, resultCode, data)
     }
-
-
-
-
+    
 
    }
 
