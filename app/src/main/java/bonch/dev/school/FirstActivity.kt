@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
 
 class FirstActivity : AppCompatActivity() {
@@ -11,7 +12,8 @@ class FirstActivity : AppCompatActivity() {
 
     private lateinit var counterButton: Button
     private lateinit var  counter: Counter
-    private lateinit var textField: TextView
+    private lateinit var textView: TextView
+    private lateinit var textField: EditText
     private lateinit var indicatorButton: Button
     private lateinit var nextActivityButton: Button
 
@@ -29,12 +31,13 @@ class FirstActivity : AppCompatActivity() {
             Counter(savedInstanceState.getInt("TAP_AMOUNTS"))
         }
         initializeView()
-        textField.text = "Button was tapped ${counter.currentCount} times"
+        textView.text = "Button was tapped ${counter.currentCount} times"
         setListener()
     }
 
     private fun initializeView(){
         counterButton=findViewById(R.id.counter_button)
+        textView=findViewById(R.id.text_view)
         textField=findViewById(R.id.text_field)
         indicatorButton=findViewById(R.id.indicator_button)
         nextActivityButton = findViewById(R.id.next_activity_button)
@@ -44,7 +47,7 @@ class FirstActivity : AppCompatActivity() {
     private fun setListener(){
         counterButton.setOnClickListener {
             counter.increment()
-            textField.text = "Button was tapped ${counter.currentCount}"
+            textView.text = "Button was tapped ${counter.currentCount}"
 
         }
 
@@ -52,6 +55,7 @@ class FirstActivity : AppCompatActivity() {
             val intent = Intent(this@FirstActivity,SecondActivity::class.java)
             intent.putExtra("TAP_KEY", counter.currentCount)
             intent.putExtra("TAP_INDICATOR",indicatorButton.isEnabled )
+            intent.putExtra("EDIT_TEXT", textField.getText().toString())
             startActivity(intent)
 
 
@@ -61,9 +65,7 @@ class FirstActivity : AppCompatActivity() {
          indicatorButton.isEnabled= false
 
 
-           /* val intent = Intent(this@FirstActivity, SecondActivity::class.java)
-            intent.putExtra("TAP_INDICATOR", false)
-            startActivity(intent)*/
+
         }
 
         }
@@ -73,9 +75,7 @@ class FirstActivity : AppCompatActivity() {
             outState.putInt("TAP_AMOUNTS", counter.currentCount)
         }
 
-     /*  override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-            super.onRestoreInstanceState(savedInstanceState)
-        }*/
+
 
 
     }

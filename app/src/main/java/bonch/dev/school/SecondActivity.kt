@@ -16,8 +16,9 @@ class SecondActivity : AppCompatActivity() {
 
         val counterValue = intent.getIntExtra("TAP_KEY", 0)
         val currentIndicator = intent.getBooleanExtra("TAP_INDICATOR", true)
+        val  currentEdit= intent.getStringExtra("EDIT_TEXT")
 
-        textView.setText("tap - $counterValue  indicator -  $currentIndicator")
+        textView.text = "tap - $counterValue  indicator -  $currentIndicator   $currentEdit"
 
     }
 }
