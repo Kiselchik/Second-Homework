@@ -13,6 +13,7 @@ class FirstActivity : AppCompatActivity() {
 
 
     private lateinit var secondActivityButton: Button
+    private lateinit var thirdActivityButton: Button
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,9 +27,16 @@ class FirstActivity : AppCompatActivity() {
 
    private fun setListener() {
        secondActivityButton=findViewById(R.id.second_activity_button)
+       thirdActivityButton=findViewById(R.id.third_activity_button)
+
        secondActivityButton.setOnClickListener {
-           val intent = Intent(this@FirstActivity, SecondActivity::class.java)
-           startActivityForResult(intent,1)
+           val intentSecond = Intent(this@FirstActivity, SecondActivity::class.java)
+           startActivityForResult(intentSecond,1)
+       }
+
+       thirdActivityButton.setOnClickListener{
+           val intentThird = Intent(this@FirstActivity, ThirdActivity::class.java)
+           startActivityForResult(intentThird,2)
        }
    }
 
@@ -36,15 +44,25 @@ class FirstActivity : AppCompatActivity() {
 
         if(requestCode==1){
             if(resultCode== Activity.RESULT_OK){
-                val toast =  Toast.makeText(this,"Кнопка была нажата", Toast.LENGTH_SHORT)
+                val toast =  Toast.makeText(this,"Кнопка была нажата в SecondActivity", Toast.LENGTH_SHORT)
                 toast.show()
 
             }else{
-                val toast =  Toast.makeText(this,"На кнопку никто не нажимал", Toast.LENGTH_SHORT)
+                val toast =  Toast.makeText(this,"На кнопку в SecondActivity никто не нажимал", Toast.LENGTH_SHORT)
                 toast.show()
 
             }
         }
+        else if (requestCode==2) {
+            if(resultCode== Activity.RESULT_OK){
+            val toast =  Toast.makeText(this,"Кнопка была нажата в ThirdActivity", Toast.LENGTH_SHORT)
+            toast.show()
+
+        }else{
+            val toast =  Toast.makeText(this,"На кнопку в ThirdActivity никто не нажимал", Toast.LENGTH_SHORT)
+            toast.show()
+
+        }}
         super.onActivityResult(requestCode, resultCode, data)
     }
 
