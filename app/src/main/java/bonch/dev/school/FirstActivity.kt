@@ -23,7 +23,7 @@ class FirstActivity : AppCompatActivity() {
 
     }
 
-
+  
 
    private fun setListener() {
        secondActivityButton=findViewById(R.id.second_activity_button)
