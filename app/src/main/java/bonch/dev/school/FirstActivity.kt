@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
 
 class FirstActivity : AppCompatActivity() {
@@ -12,6 +13,7 @@ class FirstActivity : AppCompatActivity() {
     private lateinit var counterButton: Button
     private lateinit var  counter: Counter
     private lateinit var textField: TextView
+    private lateinit var editText: EditText
     private lateinit var indicatorButton: Button
     private lateinit var nextActivityButton: Button
 
@@ -36,6 +38,7 @@ class FirstActivity : AppCompatActivity() {
     private fun initializeView(){
         counterButton=findViewById(R.id.counter_button)
         textField=findViewById(R.id.text_field)
+        editText=findViewById(R.id.edit_text)
         indicatorButton=findViewById(R.id.indicator_button)
         nextActivityButton = findViewById(R.id.next_activity_button)
 
@@ -52,6 +55,7 @@ class FirstActivity : AppCompatActivity() {
             val intent = Intent(this@FirstActivity,SecondActivity::class.java)
             intent.putExtra("TAP_KEY", counter.currentCount)
             intent.putExtra("TAP_INDICATOR",indicatorButton.isEnabled )
+            intent.putExtra("MY_EDIT", editText.getText().toString())
             startActivity(intent)
 
 
